@@ -11,14 +11,14 @@ class Cache{
 
     getCache(key) {
         if (this.appeals.get(key)) {
-            const value = this.appeals.get(key)
-            if (value != 0) {
-                this.appeals.set(key, value - 1);
-                return this.cache.get(key);
-            } else {
+            const cache = this.cache.get(key);
+            const value = this.appeals.get(key);
+            this.appeals.set(key, value - 1);
+            if (value == 0) {
                 this.appeals.delete(key);
                 this.cache.delete(key);
             }
+            return cache;
         }
         return null;
     }
